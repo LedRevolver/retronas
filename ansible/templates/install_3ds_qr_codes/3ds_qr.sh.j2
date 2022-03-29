@@ -10,6 +10,7 @@ generate_qr () {
 mkdir -p "${QRDIR}" 2>/dev/null
 # Convert URLs to HTML safe encoding:
 CIAURL=$( echo "${MYURL}/cia/$RELDIR/${BASENAME}" | sed 's/\ /%20/g' )
+CIASIZE=$( du -h "$RELDIR/${BASENAME}" | awk '{ print $1}' )
 QRURL=$( echo "${MYURL}/qr/$RELDIR/${BARENAME}.png" | sed 's/\ /%20/g' )
 # Generate QR code
 echo "Generating QR for ${BARENAME} ..."
@@ -20,6 +21,8 @@ echo "\
 <center>\
 <br><br>\
 "${CIAURL}"\
+<br><br>\
+"${BASENAME} - ${CIASIZE}"\
 <br><br>\
 <img src="${QRURL}" border="0">\
 <br><br>" > "${QRDIR}/${BARENAME}".html
